@@ -38,11 +38,13 @@ func main(){
 	if interval == 0 || maxtimes ==0  {
 		log.Fatal("the config might not right!")
 	}
+	fmt.Println("the program is going to run !")
 	ticker := time.NewTicker( time.Minute * time.Duration(interval))
     go func() {
 		counter := 0
         for t := range ticker.C {
 			counter++
+			fmt.Println()
 			fmt.Println()
 			fmt.Println(counter,"     ", t)
 			for _,url := range urlArry {
@@ -130,5 +132,6 @@ func visitUrl(url string){
 	}
 	resp, _ := clen.Do(getReq)
 	data, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(url,"     ",len(data))
+	fmt.Print(len(data))
+	//fmt.Println(url,"     ",len(data))
 }
