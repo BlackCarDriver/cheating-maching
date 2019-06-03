@@ -17,9 +17,9 @@ import (
 )
 var (
 //the path of file saving the url that need to visite
- filePath = "./url.ini"
+ filePath = "./url.conf"
 //the path fo file saving the config that customize the program
-confPath = "./default.conf"
+confPath = "./setting.conf"
 //max times of sending require, when the work is complete the program will exit
 maxtimes = 0
 //the interval of time between two require 
@@ -38,25 +38,28 @@ func main(){
 	if interval == 0 || maxtimes ==0  {
 		log.Fatal("the config might not right!")
 	}
-	fmt.Println("the program is going to run !")
 	ticker := time.NewTicker( time.Minute * time.Duration(interval))
     go func() {
 		counter := 0
         for t := range ticker.C {
 			counter++
-			fmt.Println()
-			fmt.Println()
 			fmt.Println(counter,"     ", t)
 			for _,url := range urlArry {
 				visitUrl(url)
-				//fmt.Println(url)
 			}
+			fmt.Println()
+			fmt.Println()
 			if counter >= maxtimes {
 				ticker.Stop()
+				fmt.Println("all the work is complate!")
 				os.Exit(0)
 			}
         }
 	}()
+	fmt.Println("the program is running !")
+	fmt.Println("maxtimes : ", maxtimes)
+	fmt.Println("maxdays  : ", maxdays)
+	fmt.Println("interval : ", interval)
 	time.Sleep( 24 * time.Hour * time.Duration(maxdays))
 }
 
@@ -132,6 +135,7 @@ func visitUrl(url string){
 	}
 	resp, _ := clen.Do(getReq)
 	data, _ := ioutil.ReadAll(resp.Body)
-	fmt.Print(len(data))
+	fmt.Print(len(data),"  ")
 	//fmt.Println(url,"     ",len(data))
+	//fmt.Println(string(data))
 }

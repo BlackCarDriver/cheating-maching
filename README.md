@@ -1,4 +1,5 @@
 #cheating-maching
+
 it is an go program writen by blackcardriver, the mainly function of this is help you increatse the visted times of you website such as qqrom and blog.
 
 you can build it code into an  execuable program, and run it in your server, you can 
