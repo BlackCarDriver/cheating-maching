@@ -31,26 +31,30 @@ maxdays = 0
 var urlArry []string
 var confMap = make(map[string]int)
 
-
 func main(){
 	readConf()
 	readUrl()
 	if interval == 0 || maxtimes ==0  {
 		log.Fatal("the config might not right!")
 	}
-	ticker := time.NewTicker( time.Minute * time.Duration(interval))
+	jobs := func(){
+		for _,url := range urlArry {
+			visitUrl(url)
+			// fmt.Println(url)
+			time.Sleep(time.Second)
+		}
+		fmt.Println()
+		fmt.Println()
+	}
+	jobs()
     go func() {
-		counter := 0
+		ticker := time.NewTicker( time.Minute * time.Duration(interval))
+		counter := 1
         for t := range ticker.C {
 			counter++
-			fmt.Println(counter,"     ", t)
-			for _,url := range urlArry {
-				visitUrl(url)
-			}
-			fmt.Println()
-			fmt.Println()
+			fmt.Println(counter,"   ",t)
+			jobs()
 			if counter >= maxtimes {
-				ticker.Stop()
 				fmt.Println("all the work is complate!")
 				os.Exit(0)
 			}

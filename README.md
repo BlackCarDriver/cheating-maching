@@ -7,5 +7,6 @@ setup the program with which url you need to increase the visit number, and how
 many times it visit and so on. those config should writen in the file in default.conf and
 url.ini.
 
+you can start the application with command './main > output.log&' so the program will run in background.
 
 2019/6/3 19:16:56 
